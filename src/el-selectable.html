@@ -1,0 +1,54 @@
+
+
+<polymer-element name="el-selectable"
+                 attributes="selectedIndex multi selectedClass">
+<template>
+    <content></content>
+</template>
+<script>
+    Polymer('el-selectable', {
+
+        selectedClass: 'el-selected',
+
+        ready: function () {
+            var me = this,
+                items,
+                i;
+
+            items = this.getItems();
+            for (i=0; i<items.length; i++) {
+                items[i].onclick = function (e) {
+                    me.onItemClick(e);
+                };
+            }
+            if (this.selectedIndex) {
+                this.selectItem(items[this.selectedIndex]);
+            }
+        },
+
+        getItems: function () {
+            return this.impl.children;
+        },
+
+        selectItem: function (item) {
+            var items = this.getItems(),
+                i;
+
+            for (i = 0; i < items.length; i++) {
+                this.unselectItem(items[i]);
+            }
+
+            item.className += ' ' + this.selectedClass;
+        },
+
+        unselectItem: function (item) {
+            item.className = item.className.replace(' ' + this.selectedClass, '');
+        },
+
+        onItemClick: function (e) {
+            this.selectItem(e.target);
+        }
+
+    });
+</script>
+</polymer-element>
