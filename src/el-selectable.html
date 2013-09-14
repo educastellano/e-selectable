@@ -39,7 +39,7 @@
         },
 
         getItems: function () {
-            return this.impl.children;
+            return this.children || this.impl.children;
         },
 
         selectItem: function (item) {
