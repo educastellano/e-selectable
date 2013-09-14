@@ -3,6 +3,18 @@
 <polymer-element name="el-selectable"
                  attributes="selectedIndex multi selectedClass">
 <template>
+    <style>
+        @host {
+            * .el-selected {
+                background-color: lightyellow;
+            }
+
+            * :hover {
+                background-color: lightyellow;
+                cursor: pointer;
+            }
+        }
+    </style>
     <content></content>
 </template>
 <script>
@@ -39,6 +51,7 @@
             }
 
             item.className += ' ' + this.selectedClass;
+            this.asyncFire('polymer-signal', {name: 'el-selected', data: {item: item}});
         },
 
         unselectItem: function (item) {
