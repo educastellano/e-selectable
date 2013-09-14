@@ -1,5 +1,4 @@
-<el-selectable>
-===============
+# &lt;el-selectable&gt;
 
 Web Component wrapper for selecting its children elements
 
