@@ -1,6 +1,6 @@
 # &lt;el-selectable&gt;
 
-Web Component wrapper for selecting its children elements
+Web Component wrapper for selecting children elements
 
 
 > Maintained by [Eduard C.](https://github.com/educastellano).
@@ -26,7 +26,11 @@ Web Component wrapper for selecting its children elements
 3. Start using it!
 
 	```html
-	<el-selectable></el-selectable>
+	<el-selectable>
+		<div>Item 1</div>
+		<div>Item 2</div>
+		<div>Item 3</div>
+	</el-selectable>
 	```
 
 ## Options
