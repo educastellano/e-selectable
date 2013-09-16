@@ -49,13 +49,17 @@
             for (i = 0; i < items.length; i++) {
                 this.unselectItem(items[i]);
             }
-
-            item.className += ' ' + this.selectedClass;
-            this.asyncFire('polymer-signal', {name: 'el-selected', data: {item: item}});
+            item.classList.add(this.selectedClass);
+            this.asyncFire('polymer-signal', {
+                name: 'el-selected',
+                data: {
+                    item: item
+                }
+            });
         },
 
         unselectItem: function (item) {
-            item.className = item.className.replace(' ' + this.selectedClass, '');
+            item.classList.remove(this.selectedClass);
         },
 
         onItemClick: function (e) {
