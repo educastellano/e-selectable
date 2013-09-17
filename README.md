@@ -37,7 +37,7 @@ Web Component wrapper for selecting children elements
 
 Attribute  			| Options                   | Default             | Description
 ---        			| ---                       | ---                 | ---
-`selectedIndex`    | *int*                  | `undefined`               | Index of the selected item by default
+`selectedIndex`    | *string*                  | `undefined`               | Index of the selected item by default. If multi is true, selectedIndex can be a list of indexes separated by an space.
 `selectedClass`      			| *string*  	   | `el-selected`               | CSS class that'll be set in the item when selected.
 `multi`   | *bool*                     | `undefined`               | *not yet implemented*
 
