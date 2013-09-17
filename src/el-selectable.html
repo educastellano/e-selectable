@@ -35,9 +35,6 @@
                 items[i].onmousedown = function (e) {
                     onMouseDown(me, e.target, e.metaKey, e.shiftKey);
                 };
-                items[i].onmouseup = function (e) {
-                    onMouseUp(me, e.target, e.metaKey, e.shiftKey);
-                };
             }
             if (this.selectedIndex) {
                 if (this.multi) {
@@ -149,22 +146,6 @@
                 }
             }
             else {
-                if (el.getSelectedItems().length > 1) {
-                    // mouseup event handles this case,
-                    // to avoid losing selection when drag
-                }
-                else {
-                    el.unselectAll();
-                    el.selectItem(item);
-                }
-            }
-        }
-    };
-
-    var onMouseUp = function (el, target, metaKey, shiftKey) {
-        var item = getItemBy(el, target);
-        if (!metaKey && !shiftKey) {
-            if (el.getSelectedItems().length > 0) {
                 el.unselectAll();
                 el.selectItem(item);
             }
