@@ -22,6 +22,8 @@
 
         selectedClass: 'el-selected',
 
+        multi: false,
+
         ready: function () {
             var me = this,
                 items,
@@ -29,12 +31,17 @@
 
             items = this.getItems();
             for (i=0; i<items.length; i++) {
-                items[i].onclick = function (e) {
-                    me.onItemClick(e);
+                items[i].onmousedown = function (e) {
+                    onMouseDown(me, e.target, e.metaKey, e.shiftKey);
+                };
+                items[i].onmouseup = function (e) {
+                    onMouseUp(me, e.target, e.metaKey, e.shiftKey);
                 };
             }
             if (this.selectedIndex) {
-                this.selectItem(items[this.selectedIndex]);
+                if (this.selectedIndex < items.length) {
+                    this.selectItem(items[this.selectedIndex]);
+                }
             }
         },
 
@@ -42,30 +49,133 @@
             return this.children || this.impl.children;
         },
 
-        selectItem: function (item) {
-            var items = this.getItems(),
-                i;
+        getSelectedItems: function () {
+            return this.getElementsByClassName(this.selectedClass);
+        },
 
-            for (i = 0; i < items.length; i++) {
-                this.unselectItem(items[i]);
-            }
+        isItemSelected: function (item) {
+            return item.classList.contains(this.selectedClass);
+        },
+
+        selectItem: function (item) {
             item.classList.add(this.selectedClass);
             this.asyncFire('polymer-signal', {
                 name: 'el-selected',
                 data: {
-                    item: item
+                    item: item,
+                    is_selected: true
                 }
             });
         },
 
-        unselectItem: function (item) {
+        unselectItem: function (item, silent) {
             item.classList.remove(this.selectedClass);
+            if (!silent) {
+                this.asyncFire('polymer-signal', {
+                    name: 'el-selected',
+                    data: {
+                        item: item,
+                        is_selected: false
+                    }
+                });
+            }
         },
 
-        onItemClick: function (e) {
-            this.selectItem(e.target);
-        }
+        unselectAll: function () {
+            var items = this.getItems(),
+                i;
 
+            for (i=0; i<items.length; i++) {
+                this.unselectItem(items[i], true);
+            }
+        },
+
+        toggleItem: function (item) {
+            if (this.isItemSelected(item)) {
+                this.unselectItem(item);
+            }
+            else {
+                this.selectItem(item);
+            }
+        }
+        
     });
+
+
+    // Private methods
+    //
+    var onMouseDown = function (el, target, metaKey, shiftKey) {
+        var item = getItemBy(el, target),
+            items,
+            i,
+            i_from,
+            i_to,
+            i_from_aux;
+
+        if (metaKey && el.multi) {
+            el.toggleItem(item);
+        }
+        else {
+            if (shiftKey && el.multi) {
+                items = el.children;
+                i = 0;
+                while (!(i_from && i_to) && i < items.length) {
+                    if (el.isItemSelected(items[i])) {
+                        i_from = i;
+                    }
+                    if (items[i] === item) {
+                        i_to = i;
+                    }
+                    i++;
+                }
+                if (i_from > i_to) {
+                    i_from_aux = i_from;
+                    i_from = i_to;
+                    i_to = i_from_aux;
+                }
+                for (i = i_from; i <= i_to; i++) {
+                    el.selectItem(items[i]);
+                }
+            }
+            else {
+                if (el.getSelectedItems().length > 1) {
+                    // mouseup event handles this case,
+                    // to avoid losing selection when drag
+                }
+                else {
+                    el.unselectAll();
+                    el.selectItem(item);
+                }
+            }
+        }
+    };
+
+    var onMouseUp = function (el, target, metaKey, shiftKey) {
+        var item = getItemBy(el, target);
+        if (!metaKey && !shiftKey) {
+            if (el.getSelectedItems().length > 0) {
+                el.unselectAll();
+                el.selectItem(item);
+            }
+        }
+    };
+
+    // Helper function to get an item by a sub-level tag,
+    //   useful for items with children tags.
+    var getItemBy = function (el, tag) {
+        var iGetItem;
+
+        iGetItem = function iGetItem(tag, previous_tag) {
+            if (tag === el) {
+                return previous_tag;
+            }
+            else {
+                return iGetItem(tag.parentNode, tag);
+            }
+        };
+
+        return iGetItem(tag);
+    };
+
 </script>
 </polymer-element>

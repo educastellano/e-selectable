@@ -10,15 +10,52 @@
 	<!-- Importing Custom Elements -->
 	<link rel="import" href="src/el-selectable.html">
 
+    <style>
+        .el-selected {
+            background-color: lightyellow;
+        }
+
+        el-selectable div:hover {
+            background-color: lightyellow;
+            cursor: pointer;
+            /*
+            /* the following css prevents text selection when shift+click
+            */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: moz-none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
 </head>
 <body>
 
+    <h1>Simple selection</h1>
 	<!-- Using Custom Elements -->
-	<el-selectable>
+	<el-selectable selectedIndex=0>
         <div>Item 1</div>
         <div>Item 2</div>
         <div>Item 3</div>
 	</el-selectable>
+
+    <h1>Multi selection</h1>
+
+    <el-selectable multi>
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+        <div>Item 7</div>
+        <div>Item 8</div>
+        <div>Item 9</div>
+        <div>Item 10</div>
+	</el-selectable>
+    <br><br>
+    <i>(Try multi-selection with CMD/Control or Shift keys)</i>
 
 </body>
 </html>
