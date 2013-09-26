@@ -1,7 +1,7 @@
 
 
 <polymer-element name="el-selectable"
-                 attributes="selectedIndex multi selectedClass">
+                 attributes="selectedIndex multi selectedClass checkboxes">
 <template>
     <style>
         @host {
@@ -24,17 +24,37 @@
 
         multi: false,
 
+        checkboxes: false,
+
         ready: function () {
             var me = this,
                 items,
                 i,
-                indexes;
+                indexes,
+                item,
+                new_item,
+                checkbox;
 
             items = this.getItems();
             for (i=0; i<items.length; i++) {
                 items[i].onmousedown = function (e) {
                     onMouseDown(me, e.target, e.metaKey, e.shiftKey);
                 };
+            }
+            if (this.checkboxes && this.multi) {
+                for (i=0; i<items.length; i++) {
+                    new_item = document.createElement('div');
+                    checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.style.float = 'left';
+                    checkbox.onclick = function (e) {
+                        onCheckboxClick(me, e);
+                    };
+                    item = this.removeChild(items[0]);
+                    new_item.appendChild(checkbox);
+                    new_item.appendChild(item);
+                    this.appendChild(new_item);
+                }
             }
             if (this.selectedIndex) {
                 if (this.multi) {
@@ -66,7 +86,15 @@
         },
 
         selectItem: function (item) {
+            var checkbox;
+
             item.classList.add(this.selectedClass);
+            if (this.checkboxes) {
+                checkbox = item.querySelector('input[type="checkbox"]');
+                if (checkbox && !checkbox.checked) {
+                    checkbox.checked = true;
+                }
+            }
             this.asyncFire('polymer-signal', {
                 name: 'el-selected',
                 data: {
@@ -77,7 +105,15 @@
         },
 
         unselectItem: function (item, silent) {
+            var checkbox;
+
             item.classList.remove(this.selectedClass);
+            if (this.checkboxes) {
+                checkbox = item.querySelector('input[type="checkbox"]');
+                if (checkbox && checkbox.checked) {
+                    checkbox.checked = false;
+                }
+            }
             if (!silent) {
                 this.asyncFire('polymer-signal', {
                     name: 'el-selected',
@@ -150,6 +186,11 @@
                 el.selectItem(item);
             }
         }
+    };
+
+    var onCheckboxClick = function (el, e) {
+        var item = getItemBy(el, e.target);
+        el.toggleItem(item);
     };
 
     // Helper function to get an item by a sub-level tag,
