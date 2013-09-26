@@ -28,21 +28,37 @@
             -ms-user-select: none;
             user-select: none;
         }
+        input[type="checkbox"] {
+            min-width:50px;
+            min-height:50px
+        }
     </style>
 </head>
 <body>
 
     <h1>Simple selection</h1>
-	<!-- Using Custom Elements -->
-	<el-selectable selectedIndex="0">
+	<el-selectable selectedIndex="0" checkboxes>
         <div>Item 1</div>
         <div>Item 2</div>
         <div>Item 3</div>
 	</el-selectable>
 
     <h1>Multi selection</h1>
-
     <el-selectable multi selectedIndex="0 2 4">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+        <div>Item 7</div>
+        <div>Item 8</div>
+        <div>Item 9</div>
+        <div>Item 10</div>
+	</el-selectable>
+
+    <h1>Multi selection with checkboxes</h1>
+    <el-selectable multi selectedIndex="0 2 4" checkboxes>
         <div>Item 1</div>
         <div>Item 2</div>
         <div>Item 3</div>

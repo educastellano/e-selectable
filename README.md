@@ -37,9 +37,10 @@ Web Component wrapper for selecting children elements
 
 Attribute  			| Options                   | Default             | Description
 ---        			| ---                       | ---                 | ---
-`selectedIndex`    | *string*                  | `undefined`               | Index of the selected item by default. If multi is true, selectedIndex can be a list of indexes separated by spaces.
+`selectedIndex`    | *string*                  | `undefined`               | Index of the selected item by default. If `multi` is enabled, `selectedIndex` can be a list of indexes separated by spaces.
 `selectedClass`      			| *string*  	   | `el-selected`               | CSS class that'll be set in the item when selected.
 `multi`   | *bool*                     | `undefined`               | Allows to select multiple items, using CMD/Control key or Shift key.
+`checkboxes`   | *bool*                     | `undefined`               | When `true` and `multi` enabled, child items can be selected with a checkbox.
 
 
 ## Contributing
@@ -52,6 +53,8 @@ Attribute  			| Options                   | Default             | Description
 
 ## History
 
+* v0.0.3 September 26, 2013
+	* Multi-selection with checkboxes support
 * v0.0.2 September 17, 2013
 	* Multi-selection support
 * v0.0.1 September 14, 2013
