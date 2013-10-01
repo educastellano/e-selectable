@@ -11,12 +11,18 @@
 	<link rel="import" href="src/el-selectable.html">
 
     <style>
+        .content {
+            margin-left: auto;
+            margin-right: auto;
+            width: 400px;
+        }
+
         .el-selected {
-            background-color: lightyellow;
+            background-color: #33cc99;
         }
 
         el-selectable div:hover {
-            background-color: lightyellow;
+            background-color: #33cc99;
             cursor: pointer;
             /*
             /* the following css prevents text selection when shift+click
@@ -36,42 +42,44 @@
 </head>
 <body>
 
-    <h1>Simple selection</h1>
-	<el-selectable selectedIndex="0" checkboxes>
-        <div>Item 1</div>
-        <div>Item 2</div>
-        <div>Item 3</div>
-	</el-selectable>
+    <div class="content">
+            <h1>Simple selection</h1>
+        <el-selectable selectedIndex="0">
+            <div>Item 1</div>
+            <div>Item 2</div>
+            <div>Item 3</div>
+        </el-selectable>
 
-    <h1>Multi selection</h1>
-    <el-selectable multi selectedIndex="0 2 4">
-        <div>Item 1</div>
-        <div>Item 2</div>
-        <div>Item 3</div>
-        <div>Item 4</div>
-        <div>Item 5</div>
-        <div>Item 6</div>
-        <div>Item 7</div>
-        <div>Item 8</div>
-        <div>Item 9</div>
-        <div>Item 10</div>
-	</el-selectable>
+        <h1>Multi selection</h1>
+        <el-selectable selectedIndex="0 2 4" multi>
+            <div>Item 1</div>
+            <div>Item 2</div>
+            <div>Item 3</div>
+            <div>Item 4</div>
+            <div>Item 5</div>
+            <div>Item 6</div>
+            <div>Item 7</div>
+            <div>Item 8</div>
+            <div>Item 9</div>
+            <div>Item 10</div>
+        </el-selectable>
 
-    <h1>Multi selection with checkboxes</h1>
-    <el-selectable multi selectedIndex="0 2 4" checkboxes>
-        <div>Item 1</div>
-        <div>Item 2</div>
-        <div>Item 3</div>
-        <div>Item 4</div>
-        <div>Item 5</div>
-        <div>Item 6</div>
-        <div>Item 7</div>
-        <div>Item 8</div>
-        <div>Item 9</div>
-        <div>Item 10</div>
-	</el-selectable>
-    <br><br>
-    <i>(Try multi-selection with CMD/Control or Shift keys)</i>
+        <h1>Multi selection with checkboxes</h1>
+        <el-selectable selectedIndex="0 2 4" multi checkboxes>
+            <div>Item 1</div>
+            <div>Item 2</div>
+            <div>Item 3</div>
+            <div>Item 4</div>
+            <div>Item 5</div>
+            <div>Item 6</div>
+            <div>Item 7</div>
+            <div>Item 8</div>
+            <div>Item 9</div>
+            <div>Item 10</div>
+        </el-selectable>
+        <br><br>
+        <i>(Try multi-selection with CMD/Control or Shift keys)</i>
+    </div>
 
 </body>
 </html>
