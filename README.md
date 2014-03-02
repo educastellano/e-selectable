@@ -1,6 +1,6 @@
 # &lt;e-selectable&gt;
 
-Web Component wrapper for selecting children elements
+Web Component wrapper for selecting child elements
 
 
 > Maintained by [Eduard C.](https://github.com/educastellano).
