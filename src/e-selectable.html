@@ -1,11 +1,11 @@
 
 
-<polymer-element name="el-selectable"
+<polymer-element name="e-selectable"
                  attributes="selectedIndex multi selectedClass checkboxes">
 <template>
     <style>
         @host {
-            * .el-selected {
+            * .e-selected {
                 background-color: lightyellow;
             }
 
@@ -18,9 +18,9 @@
     <content></content>
 </template>
 <script>
-    Polymer('el-selectable', {
+    Polymer('e-selectable', {
 
-        selectedClass: 'el-selected',
+        selectedClass: 'e-selected',
 
         multi: false,
 
@@ -96,7 +96,7 @@
                 }
             }
             this.asyncFire('polymer-signal', {
-                name: 'el-selected',
+                name: 'e-selected',
                 data: {
                     item: item,
                     is_selected: true
@@ -116,7 +116,7 @@
             }
             if (!silent) {
                 this.asyncFire('polymer-signal', {
-                    name: 'el-selected',
+                    name: 'e-selected',
                     data: {
                         item: item,
                         is_selected: false
